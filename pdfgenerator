@@ -1,0 +1,28 @@
+include("mpdf60/mpdf.php");
+  echo _FILE;
+ echo $path = get_home_path();
+//$msg="ranad sfakdsf asdkfasdum  kuma sdfasd";
+$mpdf=new mPDF('c','A4','','',6,6,6,6,6,6); 
+
+$mpdf->SetDisplayMode('fullpage');
+$mpdf->shrink_tables_to_fit = 1;
+$mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first level of a list
+
+// LOAD a stylesheet
+$stylesheet = file_get_contents(dirname(__FILE__).'/assets/pdf.css');
+$mpdf->WriteHTML($stylesheet,1);  // The parameter 1 tells that this is css/style only and no body/html/text
+
+$mpdf->WriteHTML($msg,2);
+
+
+
+$file_name = rand(1, 1000000);
+$pdf_s = $mpdf->Output(dirname(__FILE__)."/upload/$file_name.pdf",'F');
+//echo 'yes';
+//exit();
+
+$attachement=dirname(__FILE__)."/upload/$file_name.pdf";
+
+//$headers = 'From: My Name <info@mobilewebsitepro.com>' . "\r\n";
+wp_mail( 'priyaranjan@digitalwebsolutions.in', 'subject', 'message', $headers, $attachement );
+
