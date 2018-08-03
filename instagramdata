@@ -1,0 +1,36 @@
+
+     <?php //echo do_shortcode('[instagram-feed]');
+
+                 
+                 
+
+					$json = file_get_contents('https://api.instagram.com/v1/users/self/media/recent/?access_token=2112001032.3a81a9f.ccec538adfef4f09886f0bd859570c05');
+					$instagram_feed_data = json_decode($json, true);
+                    
+
+					foreach($instagram_feed_data['data'] as $datas)
+                     {
+
+                       $images=$datas['images'];
+
+                     
+                    //echo "<pre>";
+                  //  print_r($datas);
+                    //    echo "</pre>";
+
+ 
+                         ?>
+                             <div class="item">
+						    		<div class="instagrm1">
+						    			<a href="<?php  echo $datas['link']; ?>" target="_blank"><img src="<?php  echo  $images['standard_resolution']['url']; ?>" class="img-responsive"></a>
+						    		</div>
+							    </div>
+			    <?php 
+
+
+                     }
+
+
+
+               ?>
+	
